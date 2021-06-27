@@ -1,0 +1,31 @@
+<%- include("partials/header") -%>
+
+<div class="box" id="heading">
+  <h1><%= listName %></h1>
+</div>
+<div class="day" id="date">
+  <p><%= listDate %></p>
+</div>
+
+
+<div class="box">
+  <% tasks.forEach(function(task) { %>
+    <form class="listItem" action="/delete" method="post">
+      <div class="item">
+        <input class="checkBox" type="checkbox" name="deleteTask" value="<%=task._id%>" onChange="this.form.submit()"/>
+        <p><%= task.name %></p>
+      </div>
+      <input type="hidden" name="listName" value="<%=listName%>" />
+      <input type="hidden" name="slug" value="<%=slug%>" />
+      <input type="hidden" name="listId" value="<%=id%>" />
+    </form>
+  <% }); %>
+
+  <form class="item" action="/" method="post">
+    <input type="text" name="newItem" placeholder="New Item" autocomplete="off"/>
+    <input type="hidden" name="slug" value="<%=slug%>" />
+    <button type="submit" name="list" value="<%=listName%>">+</button>
+  </form>
+</div>
+
+<%- include("partials/footer") -%>
